@@ -1,5 +1,6 @@
 @use 'mixins';
 @use 'variables';
+@use 'card';
 
 * {
     padding: 0;
@@ -8,43 +9,55 @@
 }
 
 body{
-    background-color: variables.$Light-Grayish-Blue;
+    // background-color: brown;
     color: variables.$Very-Dark-Blue;
     font-family: variables.$Body-font;
 }
 .main-container{
-    border: 1px solid red;
+    // border: 1px solid red;
     width: 375px;
     margin: 0 auto;
+    @include mixins.desktop-view(1440px);
 }
 .navbar{
-    border: 1px solid blue;
+    // border: 1px solid blue;
     display: flex;
     justify-content: space-between;
     padding: 24px 24px 0;
     margin-bottom: 100px;
+    @include mixins.desktop-padding(24px, 80px, 0, 80px);
     &__logo{
         width: 80px;
         height: 25px;
+        @include mixins.desktop-view(170px);
     }
     &__nav-container{   
         display: flex;
         justify-content: space-between;
-        border: 1px solid red;
+        // border: 1px solid red;
         width: 167px;
         font-size: 0.8em;
+        @include mixins.desktop-view(274px, unset, 1em);
     }
     &__nav-container li{   
         list-style: none;
     }
 }
 .header{
-    border: 1px solid black;
-    padding: 0 24px;
-    margin-bottom: 182px;
+    // border: 1px solid black;
+    padding: 0 24px 182px;
+    background: {
+        image: url(../images/bg-curve-mobile.svg);
+        repeat: no-repeat;
+        position-y: bottom;
+    }
+    
+    @include mixins.sections-desktop-view(38px);
+    @include mixins.desktop-padding(0, 80px, 0, 80px);
     &__logo{
         width: 100%;
         margin-bottom: 40px;
+        @include mixins.image-desktop-view;
     }
     &__title{
         font-size: 1.5em;
@@ -83,14 +96,50 @@ body{
         font-weight: 700;
         font-size: 0.9em;
         border: none;
+        &:hover{
+            cursor: pointer;
+            background-color: variables.$Bright-Blue-hover;
+        }
+    }
+    
+}
+@media (min-width: 1440px) {
+    .header{
+        background-image: url(../images/bg-curve-desktop.svg);
+        height: 720px;
+        &__title{
+            width: 590px;
+            text-align: left;
+            font-size: 2.5em;
+            line-height: 60px;
+        }
+        &__description{
+            text-align: left;
+            font-size: 1.15em;
+        }
+        &__form{
+            flex-direction: row;
+            width: 540px;
+            height: 50px;
+            gap: 15px;
+        }
+        &__form input{
+            flex-grow: 1;
+        }
     }
 }
 .details{
-    border: 1px solid blue;
+    background-color: variables.$Light-Grayish-Blue;
+    height: 900px;
+    
+    // border: 1px solid blue;
     padding: 0 24px;
+    @include mixins.sections-desktop-view(65px, true, center);
+    @include mixins.desktop-padding(0, 80px, 0, 80px);
     &__logo{
         width: 100%;
         margin-bottom: 80px;
+        @include mixins.image-desktop-view;
     }
     &__title{
         font-size: 1em;
@@ -107,41 +156,46 @@ body{
         margin-top: 35px;
         display: block;
         width: 100%;
-        border: 1px solid red;
+        // border: 1px solid red;
         text-align: center;
         margin-bottom: 40px;
+        color: variables.$Moderate-Cyan;
+        &:hover{
+            cursor: pointer;
+        }
     }
 }
-.card{
-    border: 1px solid black;
-    width: 286px;
-    height: 175px;
-    padding: 20px 20px 20px 24px;
-    margin: 0 auto 80px;
-    &__text{
-        font-size: 0.67em;
-        line-height: 20px;
-        margin-bottom: 10px;
-    }
-    &__avatar-container{
-        display: flex;
-        font-size: 0.67em;
-    }
-    &__avatar{
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-    &__avatar-name{
-        font-weight: 700;
-        
+@media (min-width:1440px){
+    .details{
+        height: 677px;
+        &__logo{
+            width: 550px;
+        }
+        .detailes-content{
+            width: 100%;
+            height: 498px;
+            // border: 1px solid green;
+        }
+        &__title{
+            font-size: 2.5em;
+            text-align: left;
+        }
+        &__paragraph{
+            width: 520px;
+            line-height: 25px;
+            font-size: 1em;
+        }
+        &__link{
+            text-align: left;
+        }
     }
 }
 .early-access{
     background-color: variables.$Desaturated-Blue;
     color: variables.$Light-Gray;
     padding: 58px 62px 69px 38px;
+    @include mixins.sections-desktop-view(244px, false);
+    @include mixins.desktop-padding(112px, 80px, 90px, 80px);
     &__title{
         text-align: center;
         margin-bottom: 28px;
@@ -155,9 +209,37 @@ body{
         @extend .header__form
     }
 }
+@media (min-width:1440px){
+    .early-access{
+        &__title{
+            text-align: left;
+            margin-bottom: 28px;
+        }
+        &__description{
+            text-align: left;
+            font-size: 0.9em;
+            margin-bottom: 28px;
+        }
+        &__form{
+            @extend .header__form;
+            width: 484px;
+            height: 121px;
+            flex-direction: column;
+            input[type="submit"]{
+                width: 50%;
+                font-size: 0.8em;
+            }
+        }
+    }
+}
 .footer{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
     background-color: variables.$Very-Dark-Blue;
     padding: 65px 65px 45px 39px;
+    @include mixins.sections-desktop-view(190px, false);
+    @include mixins.desktop-padding(108px, 256px, 72px, 80px);
     &__logo{
         margin-bottom: 30px;
     }
@@ -165,45 +247,85 @@ body{
         display: flex;
         gap: 20px;
         margin-bottom: 20px;
+        height: 20px;
         a{
             text-decoration: none;
             color: variables.$Light-Grayish-Blue;
+            &:hover{
+                color: variables.$Bright-Blue-hover;
+            }
         }
     }
     &__email-container{
-        display: flex;
-        gap: 20px;
-        margin-bottom: 50px;
-        a{
-            text-decoration: none;
-            color: variables.$Light-Grayish-Blue;
-        }
+        @extend .footer__phone-container
     }
     ul{
-        margin-bottom: 50px;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 16px;
     }
     li{
         color: variables.$Light-Grayish-Blue;
         list-style: none;
+        &:hover{
+            cursor: pointer;
+            color: variables.$Bright-Blue-hover;
+        }
     }
-    
+    .social-media-container{
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        .social-icon{
+            display: block;
+            border: 1px solid variables.$Light-Grayish-Blue;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            &:hover{
+                cursor: pointer;
+                border-color: variables.$Bright-Blue-hover;
+            }
+        }
+    }
 }
-.social-media-container{
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    .social-icon{
-        display: block;
-        border: 1px solid variables.$Light-Grayish-Blue;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
+@media (min-width:1440px){
+    .footer{
+        flex-direction: row;
+        height: 390px;
+        ul{
+            margin-bottom: 1px;
+            align-self: flex-end;
+            // border: 1px solid white;
+            height: 140px;
+        }
+        li{
+            color: variables.$Light-Grayish-Blue;
+            list-style: none;
+        }
+        .social-media-container{
+            // border: 1px solid white;
+            height: 140px;
+            align-items: flex-start;
+            align-self: flex-end;
+        }
+    }  
+}
+
+.attribution { 
+    margin: 30px 0;
+    font-size: 14px; 
+    text-align: center; 
+    a{
+        color: hsl(228, 45%, 44%); 
+    }
+}
+@media (min-width:1440px){
+    .attribution{
+        font-size: 22px; 
     }
 }

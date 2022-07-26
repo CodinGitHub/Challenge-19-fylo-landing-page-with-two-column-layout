@@ -1,0 +1,27 @@
+@mixin desktop-view($width, $height: unset, $f-size: unset){
+    @media (min-width: 1440px) {
+        width: $width;
+        height: $height;
+        font-size: $f-size;
+    }
+};
+@mixin desktop-padding($p-up, $p-right, $p-down, $p-left){
+    @media (min-width: 1440px) {
+        padding: $p-up $p-right $p-down $p-left;
+    }
+}
+@mixin image-desktop-view{
+    @media (min-width: 1440px) {
+        width: 640px;
+    }
+};
+@mixin sections-desktop-view($gap, $reverse: true, $align: flex-start){
+    @media (min-width: 1440px) {
+        display: flex;
+        gap: $gap;
+        align-items: $align;
+        @if $reverse == true{
+            flex-direction: row-reverse;
+        }
+    }
+};
